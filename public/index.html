@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>Digital Horizons - A Modern Blog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            animation: slideDown 0.8s ease-out;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            color: white;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .post-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeInUp 0.8s ease-out both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .post-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .post-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .post-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .tag {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .post-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+            line-height: 1.3;
+        }
+
+        .post-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .read-more:hover {
+            gap: 1rem;
+            color: #764ba2;
+        }
+
+        .sidebar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            animation: fadeInRight 0.8s ease-out 0.6s both;
+        }
+
+        .sidebar h3 {
+            margin-bottom: 1rem;
+            color: #333;
+            font-size: 1.3rem;
+        }
+
+        .popular-posts {
+            list-style: none;
+        }
+
+        .popular-posts li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s ease;
+        }
+
+        .popular-posts li:hover {
+            padding-left: 1rem;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 10px;
+        }
+
+        .popular-posts a {
+            text-decoration: none;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: white;
+            opacity: 0.8;
+            animation: fadeIn 1s ease-out 1s both;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .post-card:nth-child(2) { animation-delay: 0.1s; }
+        .post-card:nth-child(3) { animation-delay: 0.2s; }
+        .post-card:nth-child(4) { animation-delay: 0.3s; }
+
+        /* iPhone and mobile optimizations */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header {
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .hero {
+                padding: 2rem 0;
+                margin-bottom: 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+                line-height: 1.2;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1.5rem;
+            }
+            
+            nav a {
+                font-size: 0.95rem;
+                padding: 0.5rem 0;
+            }
+            
+            main {
+                display: block !important;
+                grid-template-columns: none !important;
+            }
+            
+            .posts-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            }
+            
+            .post-card {
+                padding: 1.5rem;
+                border-radius: 15px;
+                margin-bottom: 0;
+            }
+            
+            .post-card h2 {
+                font-size: 1.3rem;
+                line-height: 1.3;
+            }
+            
+            .post-meta {
+                flex-wrap: wrap;
+                gap: 0.8rem;
+                font-size: 0.85rem;
+            }
+            
+            .tag {
+                padding: 0.25rem 0.6rem;
+                font-size: 0.75rem;
+            }
+            
+            .sidebar {
+                margin-top: 1rem;
+                padding: 1.5rem;
+            }
+            
+            .sidebar h3 {
+                font-size: 1.2rem;
+            }
+            
+            .popular-posts a {
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
+            
+            .floating-element {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            header {
+                padding: 1.2rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 0.95rem;
+            }
+            
+            .post-card {
+                padding: 1.2rem;
+            }
+            
+            .post-card h2 {
+                font-size: 1.2rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+            
+            nav a {
+                font-size: 0.9rem;
+            }
+            
+            .logo {
+                font-size: 1.6rem;
+            }
+        }
+        
+        /* Touch-friendly interactions */
+        @media (hover: none) and (pointer: coarse) {
+            .post-card:hover {
+                transform: none;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            }
+            
+            .post-card:active {
+                transform: scale(0.98);
+                transition: transform 0.1s ease;
+            }
+            
+            nav a:hover {
+                transform: none;
+            }
+            
+            nav a:active {
+                color: #667eea;
+                transform: scale(0.95);
+            }
+            
+            .popular-posts li:hover {
+                padding-left: 0;
+                background: none;
+            }
+            
+            .popular-posts li:active {
+                background: rgba(102, 126, 234, 0.1);
+                border-radius: 10px;
+            }
+            
+            .read-more:hover {
+                gap: 0.5rem;
+                color: #667eea;
+            }
+            
+            .read-more:active {
+                color: #764ba2;
+            }
+        }
+
+        .floating-element {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            top: 20%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .floating-element:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="logo">Digital Horizons</div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#tech">Technology</a></li>
+                        <li><a href="#design">Design</a></li>
+                        <li><a href="#lifestyle">Lifestyle</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <section class="hero">
+            <h1>Welcome to Digital Horizons</h1>
+            <p>Exploring the intersection of technology, design, and human experience in our rapidly evolving digital world.</p>
+        </section>
+
+        <main style="display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; align-items: start;">
+            <section class="posts-grid" style="grid-column: 1;">
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="tag">Technology</span>
+                        <span>January 15, 2024</span>
+                        <span>5 min read</span>
+                    </div>
+                    <h2>The Future of Artificial Intelligence in Creative Industries</h2>
+                    <p>Exploring how AI is transforming creative workflows while preserving human creativity and artistic vision. From generative design to collaborative AI tools, we dive deep into what the future holds.</p>
+                    <a href="blog_entry.html" class="read-more">Read More →</a>
+                </article>
+
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="tag">Design</span>
+                        <span>January 12, 2024</span>
+                        <span>8 min read</span>
+                    </div>
+                    <h2>Mastering Minimalist Web Design in 2024</h2>
+                    <p>Less is more has never been more relevant. Discover the principles of effective minimalist design that creates maximum impact with clean aesthetics and purposeful functionality.</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </article>
+
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="tag">Lifestyle</span>
+                        <span>January 10, 2024</span>
+                        <span>6 min read</span>
+                    </div>
+                    <h2>Digital Wellness: Finding Balance in a Connected World</h2>
+                    <p>Practical strategies for maintaining mental health and productivity while navigating our increasingly digital lives. Tips for mindful technology use and creating healthy boundaries.</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </article>
+
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="tag">Technology</span>
+                        <span>January 8, 2024</span>
+                        <span>7 min read</span>
+                    </div>
+                    <h2>Quantum Computing: Beyond the Hype</h2>
+                    <p>Separating quantum reality from quantum fiction. A clear-eyed look at current capabilities, limitations, and the timeline for practical quantum applications in everyday technology.</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </article>
+            </section>
+
+            <aside class="sidebar">
+                <h3>Popular Posts</h3>
+                <ul class="popular-posts">
+                    <li><a href="#">10 Web Development Trends to Watch This Year</a></li>
+                    <li><a href="#">The Psychology Behind Effective UX Design</a></li>
+                    <li><a href="#">Building Sustainable Tech Habits</a></li>
+                    <li><a href="#">Cryptocurrency and the Future of Finance</a></li>
+                    <li><a href="#">Remote Work Tools That Actually Work</a></li>
+                </ul>
+
+                <h3 style="margin-top: 2rem;">Categories</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
+                    <span class="tag" style="cursor: pointer;">Technology</span>
+                    <span class="tag" style="cursor: pointer;">Design</span>
+                    <span class="tag" style="cursor: pointer;">Lifestyle</span>
+                    <span class="tag" style="cursor: pointer;">Reviews</span>
+                    <span class="tag" style="cursor: pointer;">Tutorials</span>
+                </div>
+            </aside>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Digital Horizons. Crafted with passion for the digital future.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Add smooth scrolling for navigation links
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Optimized touch interactions for mobile
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        
+        if (!isTouchDevice) {
+            // Desktop hover effects
+            document.querySelectorAll('.post-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        }
+
+        // Optimized parallax for mobile (reduced processing)
+        let ticking = false;
+        function updateParallax() {
+            if (window.innerWidth > 768) {
+                const scrolled = window.pageYOffset;
+                const parallax = scrolled * 0.3;
+                
+                document.querySelectorAll('.floating-element').forEach((el, index) => {
+                    el.style.transform = `translateY(${parallax * (index + 1) * 0.1}px) rotate(${scrolled * 0.05}deg)`;
+                });
+            }
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateParallax);
+                ticking = true;
+            }
+        });
+
+        // Prevent zoom on double tap for iOS
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
