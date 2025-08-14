@@ -2,7 +2,7 @@
   "name": "@tinkerable-site/vibe-blog",
   "version": "0.0.1",
   "private": true,
-  "main": "App.tsx",
+  "main": "index.tsx",
   "dependencies": {
     "@tinkerable/internal": "file:../sandpack-bundler/static/tinkerable-internal",
     "react": "^19.1.0",
