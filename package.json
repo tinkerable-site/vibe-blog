@@ -6,10 +6,13 @@
   "dependencies": {
     "@tinkerable/internal": "file:../sandpack-bundler/static/tinkerable-internal",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-router": "7.5.3"
+    "react-dom": "^19.1.0"
+  },
+  "scripts": {
+    "build": "rollup -c .tinkerable/rollup.config.mjs"
   },
   "devDependencies": {
+    "tslib": "^2.8.1",
     "@mdx-js/rollup": "^3.1.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.2",
