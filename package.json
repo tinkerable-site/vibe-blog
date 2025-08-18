@@ -6,7 +6,8 @@
   "dependencies": {
     "@tinkerable/internal": "file:../sandpack-bundler/static/tinkerable-internal",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "react-error-boundary": "^6.0.0"
   },
   "scripts": {
     "build": "rollup -c .tinkerable/rollup.config.mjs"
