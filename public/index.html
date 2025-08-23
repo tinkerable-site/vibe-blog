@@ -11,7 +11,7 @@
     <div class="floating-element"></div>
     <div class="floating-element"></div>
     <div class="floating-element"></div>
-    
+
     <div class="container">
         <header>
             <div class="header-content">
@@ -33,74 +33,9 @@
             <p>Exploring the intersection of technology, design, and human experience in our rapidly evolving digital world.</p>
         </section>
 
-        <main style="display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; align-items: start;">
-            <section class="posts-grid" style="grid-column: 1;">
-                <article class="post-card">
-                    <div class="post-meta">
-                        <span class="tag">Technology</span>
-                        <span>January 15, 2024</span>
-                        <span>5 min read</span>
-                    </div>
-                    <h2>The Future of Artificial Intelligence in Creative Industries</h2>
-                    <p>Exploring how AI is transforming creative workflows while preserving human creativity and artistic vision. From generative design to collaborative AI tools, we dive deep into what the future holds.</p>
-                    <a href="blog_entry.html" class="read-more">Read More →</a>
-                </article>
 
-                <article class="post-card">
-                    <div class="post-meta">
-                        <span class="tag">Design</span>
-                        <span>January 12, 2024</span>
-                        <span>8 min read</span>
-                    </div>
-                    <h2>Mastering Minimalist Web Design in 2024</h2>
-                    <p>Less is more has never been more relevant. Discover the principles of effective minimalist design that creates maximum impact with clean aesthetics and purposeful functionality.</p>
-                    <a href="#" class="read-more">Read More →</a>
-                </article>
-
-                <article class="post-card">
-                    <div class="post-meta">
-                        <span class="tag">Lifestyle</span>
-                        <span>January 10, 2024</span>
-                        <span>6 min read</span>
-                    </div>
-                    <h2>Digital Wellness: Finding Balance in a Connected World</h2>
-                    <p>Practical strategies for maintaining mental health and productivity while navigating our increasingly digital lives. Tips for mindful technology use and creating healthy boundaries.</p>
-                    <a href="#" class="read-more">Read More →</a>
-                </article>
-
-                <article class="post-card">
-                    <div class="post-meta">
-                        <span class="tag">Technology</span>
-                        <span>January 8, 2024</span>
-                        <span>7 min read</span>
-                    </div>
-                    <h2>Quantum Computing: Beyond the Hype</h2>
-                    <p>Separating quantum reality from quantum fiction. A clear-eyed look at current capabilities, limitations, and the timeline for practical quantum applications in everyday technology.</p>
-                    <a href="#" class="read-more">Read More →</a>
-                </article>
-            </section>
-
-            <aside class="sidebar">
-                <h3>Popular Posts</h3>
-                <ul class="popular-posts">
-                    <li><a href="#">10 Web Development Trends to Watch This Year</a></li>
-                    <li><a href="#">The Psychology Behind Effective UX Design</a></li>
-                    <li><a href="#">Building Sustainable Tech Habits</a></li>
-                    <li><a href="#">Cryptocurrency and the Future of Finance</a></li>
-                    <li><a href="#">Remote Work Tools That Actually Work</a></li>
-                </ul>
-
-                <h3 style="margin-top: 2rem;">Categories</h3>
-                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
-                    <span class="tag" style="cursor: pointer;">Technology</span>
-                    <span class="tag" style="cursor: pointer;">Design</span>
-                    <span class="tag" style="cursor: pointer;">Lifestyle</span>
-                    <span class="tag" style="cursor: pointer;">Reviews</span>
-                    <span class="tag" style="cursor: pointer;">Tutorials</span>
-                </div>
-            </aside>
-        </main>
         <div id="root"></div>
+
 
         <footer>
             <p>&copy; 2024 Digital Horizons. Crafted with passion for the digital future.</p>
@@ -121,14 +56,14 @@
 
         // Optimized touch interactions for mobile
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        
+
         if (!isTouchDevice) {
             // Desktop hover effects
             document.querySelectorAll('.post-card').forEach(card => {
                 card.addEventListener('mouseenter', function() {
                     this.style.transform = 'translateY(-10px) scale(1.02)';
                 });
-                
+
                 card.addEventListener('mouseleave', function() {
                     this.style.transform = 'translateY(0) scale(1)';
                 });
@@ -141,7 +76,7 @@
             if (window.innerWidth > 768) {
                 const scrolled = window.pageYOffset;
                 const parallax = scrolled * 0.3;
-                
+
                 document.querySelectorAll('.floating-element').forEach((el, index) => {
                     el.style.transform = `translateY(${parallax * (index + 1) * 0.1}px) rotate(${scrolled * 0.05}deg)`;
                 });
