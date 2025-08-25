@@ -1,11 +1,10 @@
-import {
-  Include,
-  Link,
-  useMetadataQuery,
-  useFileMetadata,
-  FilesMetadata,
-} from "@tinkerable/internal/v1";
+import {Include} from "@tinkerable/internal/v1/include"
+import {Link} from "@tinkerable/internal/v1/components"
+import {useMetadataQuery, useFileMetadata} from "@tinkerable/internal/v1/hooks"
 import { useCallback, useMemo } from "react";
+
+export type Metadata = Record<string, any>;
+export type FilesMetadata = Record<string, Metadata>;
 
 export const ArticleCard = ({ path }: { path: string }) => {
   const metadata = useFileMetadata(path);
@@ -36,12 +35,16 @@ export const Articles = () => {
     []
   );
   const results = useMetadataQuery(queryFn);
+  const articleCards = useMemo(() => {
+    if (!results || !results.result) {
+      return null;
+    }
+    return results.result.map((path:string) => <ArticleCard key={path} path={path} />);
+  }, [results]);
   const renderedArticles = useMemo(() => {
     return (
       <section className="posts-grid" style={{ gridColumn: 1 }}>
-        {results &&
-          "result" in results &&
-          results.result.map((path) => <ArticleCard key={path} path={path} />)}
+        {articleCards}
       </section>
     );
   }, [results]);
@@ -62,7 +65,7 @@ const Hompage = () => {
 
       <aside className="sidebar">
         <h3>Popular Posts</h3>
-        <Include filename="/pages/popular_posts.mdx" />
+        <Include filename="/pages/popular_posts.mdx" baseModule={module}/>
 
         <h3 style={{ marginTop: "2rem" }}>Categories</h3>
         <div
