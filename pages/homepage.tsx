@@ -1,6 +1,6 @@
-import {Include} from "@tinkerable/internal/v1/include"
-import {Link} from "@tinkerable/internal/v1/components"
-import {useMetadataQuery, useFileMetadata} from "@tinkerable/internal/v1/hooks"
+import {Include} from "@tinkerable/internal/include"
+import {Link} from "@tinkerable/internal/components"
+import {useMetadataQuery, useFileMetadata} from "@tinkerable/internal/hooks"
 import { useCallback, useMemo } from "react";
 
 export type Metadata = Record<string, any>;
@@ -36,7 +36,7 @@ export const Articles = () => {
   );
   const results = useMetadataQuery(queryFn);
   const articleCards = useMemo(() => {
-    if (!results || !results.result) {
+    if (!results || !('result' in results)) {
       return null;
     }
     return results.result.map((path:string) => <ArticleCard key={path} path={path} />);
