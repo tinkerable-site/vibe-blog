@@ -1,9 +1,14 @@
 import { Toc } from "./App";
-import "./styles.css";
+import "./styles2.css";
 import { boot } from "@tinkerable/internal/boot";
 
 boot({
-  routes: {
-    toc: Toc,
+  routingSpec: {
+    aliases: {
+      "/index.tsx": "/pages/landing.tsx",
+    },
+    routes: {
+      toc: Toc,
+    },
   },
 });
