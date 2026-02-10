@@ -1,5 +1,5 @@
-import {Include} from "@tinkerable/internal/include"
-import {Link} from "@tinkerable/internal/components"
+import {Include} from "@tinkerable/internal/components/Include"
+import {Link} from "@tinkerable/internal/components/MDXComponents"
 import {useMetadataQuery, useFileMetadata} from "@tinkerable/internal/hooks"
 import { useCallback, useMemo } from "react";
 
